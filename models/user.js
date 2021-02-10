@@ -47,5 +47,9 @@ module.exports = class User extends Sequelize.Model {
             collate: 'utf8_general_ci', // 한글입력
         });
     }
-    static associate(db) {} // 다른 모델과의 관계 작성
+    static associate(db) {  // 다른 모델과의 관계 작성
+        // 1 : N (1명의 User에 Comment 여러건 연결)
+        // hasMany - sourceKey
+        db.User.hasMany(db.Comment, {foreignKey: 'commenter', sourceKey: 'id'});
+    } 
 }
