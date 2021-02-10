@@ -1,0 +1,31 @@
+{
+  "name": "learn-sequelize",
+  "version": "0.0.1",
+  "description": "learn sequelize project",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/griffinna/learn-sequelize.git"
+  },
+  "author": "griffinna",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/griffinna/learn-sequelize/issues"
+  },
+  "homepage": "https://github.com/griffinna/learn-sequelize#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.2.5",
+    "nunjucks": "^3.2.2",
+    "sequelize": "^6.5.0",
+    "sequelize-cli": "^6.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
