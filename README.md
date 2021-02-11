@@ -17,7 +17,7 @@ UNIQUE | unique: true
 DEFAULT now() | defaultValue: Sequelize.NOW
 
 # 테이블 간 관계 정의하기
-## 1. 1 : N (User : Comment)
+## - 1 : N (User : Comment)
 > hasMany  
 belongsTo
 - models/user.js
@@ -37,7 +37,7 @@ static associate(db) {  // 다른 모델과의 관계 작성
 } 
 ```
 
-## 2. 1 : 1 (User : Info)
+## - 1 : 1 (User : Info)
 > hasOne  
 belongsTo
 ```javascript
@@ -46,7 +46,7 @@ db.User.hasOne(db.Info, {foreignKey: 'UserId', sourceKey: 'id'});
 db.Info.belongsTo(db.User, {foreignKey: 'UserId', targetKey: 'id'});
 ```
 
-## 3. N : M (Post : Hashtag)
+## - N : M (Post : Hashtag)
 > belongsToMany  
 through: 두 객체의 아이디가 저장되는 모델 생성
 ```javascript
