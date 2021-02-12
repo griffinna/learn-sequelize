@@ -161,3 +161,83 @@ User.destroy({
     where: { id: 2 },
 });
 ```
+
+# 관계 쿼리
+findOne 이나 findAll 메서드를 호출할 때 프로미스의 결과로 모델을 반환  
+(findAll 은 모두 찾는 것이므로 모델의 배열을 반환)
+```javascript
+const user = await User.findOne({});
+console.log(user.nick);
+```
+## include
+```javascript
+const user = await User.findOne({
+    include: [{ // 관계가 있는 모델
+        model: Comment
+    }]
+});
+console.log(user.Comments); // 사용자 댓글
+
+const user = await User.findOne({});
+const comments = await User.getComments();
+console.log(comments);  // 사용자 댓글
+```
+- getComments (조회)
+- setComments (수정)
+- addComment (하나 생성)
+- addComments (여러 개 생성)
+- removeComments (삭제)
+
+## include - where, attributes 옵션
+```javascript
+const user = await User.findOne({
+    include: [{
+        model: Comment,
+        where: {
+            id: 1
+        },
+        attributes: ['id'],
+    }]
+});
+// 또는
+const comments = await user.getComments({
+    where: {
+        id: 1,
+    },
+    attributes: ['id'],
+})
+```
+
+## 수정, 생성, 삭제
+```javascript
+const user = await User.findOne({});
+const comment = await Comment.create();
+await user.addComment(comment);
+// 또는
+await user.addComment(comment.id);
+
+// 여러건 저장하기
+const user = await User.findOne({});
+const comment1 = await Comment.create();
+const comment2 = await Comment.create();
+awaut user.addComments([comment1, comment2]);
+```
+
+## as 옵션
+> 동사 뒤의 모델 이름을 바꿀때 사용
+```javascript
+// 관계를 설정할 때 as로 등록
+db.User.hasMany(db.Comment, { foreignKey: 'commenter', sourceKey: 'id', as: 'Answers'});
+
+// 쿼리
+const user = await user.findOne({});
+const commnents = await user.getAnswers();
+console.log(comments);  // 사용자 댓글
+```
+
+## SQL 쿼리
+> 직접 SQL 문을 통해 쿼리할 수 있음
+```javascript
+const [result, metadata] = await sequelize.query('SELECT * FROM comments');
+console.log(result);
+```
