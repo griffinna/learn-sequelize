@@ -10,7 +10,7 @@ document.querySelectorAll('#user-list tr').forEach((el) => {
 async function getUser() {
     try {
         const res = await axios.get('/users');
-        const user = res.data;
+        const users = res.data;
         console.log(users);
         const tbody = document.querySelector('#user-list tbody');
         tbody.innerHTML = '';
